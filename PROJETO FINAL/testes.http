@@ -1,0 +1,176 @@
+```http
+@baseUrl = http://127.0.0.1:5000
+
+### Criar categoria Tradicional
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "nome": "Tradicional",
+  "descricao": "Comidas caseiras clássicas brasileiras"
+}
+
+### Criar categoria Fitness
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "nome": "Fitness",
+  "descricao": "Opções leves e saudáveis"
+}
+
+### Criar categoria Vegetariana
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "nome": "Vegetariana",
+  "descricao": "Sem carne, cheia de sabor"
+}
+
+### Listar categorias
+GET {{baseUrl}}/categorias
+
+### Buscar categoria por id
+GET {{baseUrl}}/categorias/1
+
+### Atualizar categoria
+PUT {{baseUrl}}/categorias/1
+Content-Type: application/json
+
+{
+  "nome": "Tradicional",
+  "descricao": "Comidas caseiras clássicas"
+}
+
+### Categoria com nome duplicado (400)
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "nome": "Tradicional"
+}
+
+### Categoria sem nome (400)
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "descricao": "Sem nome"
+}
+
+### Categoria inexistente (404)
+GET {{baseUrl}}/categorias/999
+
+### Criar marmita Feijoada
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Feijoada Completa",
+  "descricao": "Feijão preto, carne seca, linguiça e acompanhamentos",
+  "preco": 28.90,
+  "categoria_id": 1
+}
+
+### Criar marmita Frango Grelhado
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Frango Grelhado com Legumes",
+  "descricao": "Peito de frango, arroz integral e legumes",
+  "preco": 24.50,
+  "categoria_id": 2
+}
+
+### Criar marmita Estrogonofe
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Estrogonofe de Carne",
+  "descricao": "Carne em cubos, molho cremoso, arroz e batata palha",
+  "preco": 27.00,
+  "categoria_id": 1
+}
+
+### Criar marmita Moqueca de Palmito
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Moqueca de Palmito",
+  "descricao": "Palmito, leite de coco, dendê, arroz e farofa",
+  "preco": 26.90,
+  "categoria_id": 3
+}
+
+### Listar marmitas
+GET {{baseUrl}}/marmitas
+
+### Buscar marmita por id
+GET {{baseUrl}}/marmitas/1
+
+### Atualizar marmita
+PUT {{baseUrl}}/marmitas/1
+Content-Type: application/json
+
+{
+  "preco": 29.90
+}
+
+### Marmita sem preço (400)
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Teste",
+  "categoria_id": 1
+}
+
+### Marmita com categoria inexistente (400)
+POST {{baseUrl}}/marmitas
+Content-Type: application/json
+
+{
+  "nome": "Teste",
+  "preco": 20.00,
+  "categoria_id": 999
+}
+
+### Marmita inexistente (404)
+GET {{baseUrl}}/marmitas/999
+
+### JOIN - marmitas com nome da categoria
+GET {{baseUrl}}/marmitas/com-categoria
+
+### Filtro por caminho - categoria 1
+GET {{baseUrl}}/categorias/1/marmitas
+
+### Filtro por caminho - categoria 2
+GET {{baseUrl}}/categorias/2/marmitas
+
+### Filtro por caminho - categoria inexistente (404)
+GET {{baseUrl}}/categorias/999/marmitas
+
+### Busca LIKE - frango
+GET {{baseUrl}}/marmitas/busca?nome=frango
+
+### Busca LIKE - feijoada
+GET {{baseUrl}}/marmitas/busca?nome=feijoada
+
+### Busca sem parâmetro (400)
+GET {{baseUrl}}/marmitas/busca
+
+### Deletar marmita
+DELETE {{baseUrl}}/marmitas/4
+
+### Deletar categoria (CASCADE)
+DELETE {{baseUrl}}/categorias/3
+
+### Verificar se categoria 3 foi apagada
+GET {{baseUrl}}/categorias/3
+
+### Listar marmitas depois do delete
+GET {{baseUrl}}/marmitas
